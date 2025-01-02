@@ -17,6 +17,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+-- Create database and use it
+CREATE DATABASE IF NOT EXISTS `tubes`;
+USE `tubes`;
+
 --
 -- Database: `tubes`
 --
