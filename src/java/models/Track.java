@@ -127,11 +127,11 @@ public class Track extends Model<Track> {
             track.setLikeCount(rs.getInt("likeCount"));
             track.setShareCount(rs.getInt("shareCount"));
 
-            Artist artist = new Artist();
-            track.setArtist(artist.find(String.valueOf(rs.getInt("artist_id"))));
+            Artist tempartist = new Artist();
+            track.setArtist(tempartist.find(String.valueOf(rs.getInt("artist_id"))));
 
-            Album album = new Album();
-            track.setAlbum(album.find(String.valueOf(rs.getInt("album_id"))));
+            Album tempalbum = new Album();
+            track.setAlbum(tempalbum.find(String.valueOf(rs.getInt("album_id"))));
 
             return track;
         } catch (SQLException e) {
