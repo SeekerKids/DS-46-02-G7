@@ -8,7 +8,7 @@ public class PremiumUser extends User implements Subscription {
     public PremiumUser(String username, String email, String password) {
         super(username, email, password);
         this.premium = true;
-        this.price = 150_000.0 + (150_000.0 * TAX_PERCENT); // Harga $10 + pajak
+        this.price = 150_000.0 + (150_000.0 * TAX_PERCENT);
     }
 
     public boolean isPremium() {
@@ -31,6 +31,6 @@ public class PremiumUser extends User implements Subscription {
     @Override
     public void cancel() {
         FreeUser freeUser = new FreeUser(getUsername(), getEmail(), getPassword());
-        System.out.println("User " + getUsername() + " has downgraded to FreeUser.");
+        freeUser.setPremium(false);
     }
 }

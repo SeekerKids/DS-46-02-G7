@@ -5,7 +5,8 @@ import java.util.ArrayList;
 
 public class Playlist extends Model<Playlist> {
 
-    private int id;
+    private int id;                     // primary key
+    private int userId;               // foreign key
     private String name;
     private String description;
     private ArrayList<Integer> tracks;
@@ -16,9 +17,10 @@ public class Playlist extends Model<Playlist> {
         this.tracks = new ArrayList<>();
     }
 
-    public Playlist(int id, String name, String description) {
+    public Playlist(int id, int userId, String name, String description) {
         this();
         this.id = id;
+        this.userId = id;
         this.name = name;
         this.description = description;
     }
@@ -29,6 +31,14 @@ public class Playlist extends Model<Playlist> {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -80,9 +90,9 @@ public class Playlist extends Model<Playlist> {
         try {
             Playlist playlist = new Playlist();
             playlist.setId(rs.getInt("id"));
+            playlist.setUserId(rs.getInt("user_id"));
             playlist.setName(rs.getString("name"));
             playlist.setDescription(rs.getString("description"));
-            // Mengambil tracks dari database jika diperlukan (butuh tabel relasi playlist-track)
             return playlist;
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
@@ -99,4 +109,5 @@ public class Playlist extends Model<Playlist> {
         }
         System.out.println("Tracks untuk playlist " + name + " berhasil dimuat: " + tracks);
     }
+
 }

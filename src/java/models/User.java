@@ -10,12 +10,12 @@ public class User extends Model<User> {
     private String username;
     private String email;
     private String password;
-    private ArrayList<Playlist> playlist;
+    private ArrayList<Playlist> playlists;
 
     public User() {
         this.table = "user";
         this.primaryKey = "id";
-        this.playlist = new ArrayList<>();
+        this.playlists = new ArrayList<>();
     }
 
     public User(String username, String email, String password) {
@@ -58,11 +58,11 @@ public class User extends Model<User> {
     }
 
     public ArrayList<Playlist> getPlaylist() {
-        return playlist;
+        return playlists;
     }
 
     public void setPlaylist(ArrayList<Playlist> playlist) {
-        this.playlist = playlist;
+        this.playlists = playlist;
     }
 
     @Override
@@ -82,30 +82,25 @@ public class User extends Model<User> {
     public void createPlaylist(String name, ArrayList<Integer> trackIds) {
         Playlist playlist = new Playlist();
         playlist.setName(name);
-        playlist.setUserId(this.id); // Relasi dengan user
-        playlist.insert(); // Simpan playlist ke database
+        playlist.setUserId(this.id);
+        playlist.insert();
 
-        // Tambahkan track ke tabel relasi playlist-track
         for (int trackId : trackIds) {
             String query = "INSERT INTO playlist_track (playlist_id, track_id) VALUES ("
                     + playlist.getId() + ", " + trackId + ")";
             this.query(query);
         }
 
-        // Tambahkan playlist ke list di class
         playlists.add(playlist);
     }
 
     public void deletePlaylist(int playlistId) {
-        // Hapus playlist dari database
         String query = "DELETE FROM playlist WHERE id = " + playlistId;
         this.query(query);
 
-        // Hapus relasi track dari tabel playlist-track
         query = "DELETE FROM playlist_track WHERE playlist_id = " + playlistId;
         this.query(query);
 
-        // Hapus playlist dari list di class
         playlists.removeIf(playlist -> playlist.getId() == playlistId);
     }
 

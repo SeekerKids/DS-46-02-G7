@@ -5,7 +5,8 @@ import java.sql.SQLException;
 
 public class Track extends Model<Track> {
 
-    private int id;
+    private int id;                     // primary key
+    private int albumId;                // foreign key
     private String title;
     private String genre;
     private double duration;
@@ -23,9 +24,10 @@ public class Track extends Model<Track> {
         this.streamCount = 0;
     }
 
-    public Track(int id, String title, String genre, double duration, int streamCount, Artist artist, Album album) {
+    public Track(int id, int albumId, String title, String genre, double duration, int streamCount, Artist artist, Album album) {
         this();
         this.id = id;
+        this.albumId = albumId;
         this.title = title;
         this.genre = genre;
         this.duration = duration;
@@ -39,6 +41,14 @@ public class Track extends Model<Track> {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getAlbumId() {
+        return albumId;
+    }
+
+    public void setAlbumId(int albumId) {
+        this.albumId = albumId;
     }
 
     public String getTitle() {

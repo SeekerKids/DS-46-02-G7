@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Artist extends Model<Artist> {
 
-    private int id;
+    private int id;                     // primary key
     private String name;
     private String bio;
     private ArrayList<Album> albums;
@@ -65,21 +65,35 @@ public class Artist extends Model<Artist> {
             artist.setBio(rs.getString("bio"));
             return artist;
         } catch (SQLException e) {
-            System.out.println("Error converting ResultSet to Artist: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
             return null;
         }
     }
 
     public void addAlbum(Album album) {
-    if (!albums.contains(album.getId())) {
-        albums.add(album.getId());
-        System.out.println("Album dengan ID " + album.getId() + " berhasil ditambahkan ke artist " + name);
-        // Pastikan album di-update ke database dengan set artist_id
-        album.setArtistId(this.id);
-        album.update();
-    } else {
-        System.out.println("Album dengan ID " + album.getId() + " sudah ada di artist " + name);
+        boolean exists = albums.stream().anyMatch(a -> a.getId() == album.getId());
+        if (!exists) {
+            albums.add(album);
+            album.setArtistId(this.id);
+            album.update();
+        } else {
+            System.out.println("Album dengan ID " + album.getId() + " sudah ada di artist " + name);
+        }
     }
-}
+
+    public void deleteAlbum(int albumId) {
+        Album toRemove = albums.stream()
+                .filter(album -> album.getId() == albumId)
+                .findFirst()
+                .orElse(null);
+        if (toRemove != null) {
+            albums.remove(toRemove);
+            System.out.println("Album dengan ID " + albumId + " berhasil dihapus dari artist " + name);
+            toRemove.setArtistId(0);
+            toRemove.update();
+        } else {
+            System.out.println("Album dengan ID " + albumId + " tidak ditemukan di artist " + name);
+        }
+    }
 
 }

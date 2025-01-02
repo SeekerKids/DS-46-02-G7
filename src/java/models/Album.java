@@ -7,7 +7,8 @@ import java.util.Date;
 
 public class Album extends Model<Album> {
 
-    private int id;
+    private int id;                     // primary key
+    private int artistId;               // foreign key
     private String title;
     private Date relase;
     private ArrayList<Track> tracks;
@@ -18,9 +19,10 @@ public class Album extends Model<Album> {
         this.tracks = new ArrayList<>();
     }
 
-    public Album(int id, String title, Date relase) {
+    public Album(int id, int artistId, String title, Date relase) {
         this();
         this.id = id;
+        this.artistId = artistId;
         this.title = title;
         this.relase = relase;
     }
@@ -31,6 +33,14 @@ public class Album extends Model<Album> {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getArtistId() {
+        return artistId;
+    }
+
+    public void setArtistId(int id) {
+        this.artistId = artistId;
     }
 
     public String getTitle() {
@@ -64,10 +74,40 @@ public class Album extends Model<Album> {
             album.setId(rs.getInt("id"));
             album.setTitle(rs.getString("title"));
             album.setRelase(rs.getDate("relase"));
+            album.setArtistId(rs.getInt("artist_id"));
             return album;
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
             return null;
         }
     }
+
+    public void addTrack(Track track) {
+        for (Track t : tracks) {
+            if (t.getId() == track.getId()) {
+                return;
+            }
+        }
+        tracks.add(track);
+        track.setAlbumId(this.id);
+        track.update();
+    }
+
+    public void deleteTrack(int trackId) {
+        Track trackToRemove = null;
+        for (Track t : tracks) {
+            if (t.getId() == trackId) {
+                trackToRemove = t;
+                break;
+            }
+        }
+        if (trackToRemove == null) {
+            System.out.println("Track dengan ID " + trackId + " tidak ditemukan di album " + title);
+            return;
+        }
+        tracks.remove(trackToRemove);
+        trackToRemove.delete();
+        System.out.println("Track dengan ID " + trackId + " berhasil dihapus dari album " + title);
+    }
+
 }
