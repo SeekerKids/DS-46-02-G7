@@ -1,44 +1,112 @@
 package models;
-//masih belom
-public class User {
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+public class User extends Model<User> {
+
     private int id;
     private String username;
-    private String password;
     private String email;
-    private Subscription type;
-    private List<String> playlists;
+    private String password;
+    private ArrayList<Playlist> playlist;
 
-    // Constructor
-    public User(String userID, String username, String password, String email, Subscription subscriptionType) {
-        this.id = userID;
+    public User() {
+        this.table = "user";
+        this.primaryKey = "id";
+        this.playlist = new ArrayList<>();
+    }
+
+    public User(String username, String email, String password) {
+        this();
         this.username = username;
-        this.password = password;
         this.email = email;
-        this.subscriptionType = subscriptionType;
-        this.playlists = new ArrayList<>();
+        this.password = password;
     }
 
-    public void createPlaylist(String playlistName) {
-        playlists.add(playlistName);
-        System.out.println("Playlist '" + playlistName + "' created.");
+    public int getId() {
+        return id;
     }
 
-    public void deletePlaylist(String playlistName) {
-        if (playlists.remove(playlistName)) {
-            System.out.println("Playlist '" + playlistName + "' deleted.");
-        } else {
-            System.out.println("Playlist '" + playlistName + "' not found.");
-        }
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void upgradeSubs(Subscription newSubscription) {
-        System.out.println("Upgrading subscription from " + subscriptionType.getClass().getSimpleName() + " to " + newSubscription.getClass().getSimpleName() + ".");
-        this.subscriptionType = newSubscription;
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public ArrayList<Playlist> getPlaylist() {
+        return playlist;
+    }
+
+    public void setPlaylist(ArrayList<Playlist> playlist) {
+        this.playlist = playlist;
     }
 
     @Override
-    public String toString() {
-        return "User [userID=" + id + ", username=" + username + ", email=" + email + ", subscriptionType=" + subscriptionType.getClass().getSimpleName() + ", playlists=" + playlists + "]";
+    public User toModel(ResultSet rs) {
+        User user = new User();
+        try {
+            user.setId(rs.getInt("id"));
+            user.setUsername(rs.getString("username"));
+            user.setEmail(rs.getString("email"));
+            user.setPassword(rs.getString("password"));
+        } catch (SQLException e) {
+            System.out.println("Error mapping user: " + e.getMessage());
+        }
+        return user;
     }
-}
 
+    public void createPlaylist(String name, ArrayList<Integer> trackIds) {
+        Playlist playlist = new Playlist();
+        playlist.setName(name);
+        playlist.setUserId(this.id); // Relasi dengan user
+        playlist.insert(); // Simpan playlist ke database
+
+        // Tambahkan track ke tabel relasi playlist-track
+        for (int trackId : trackIds) {
+            String query = "INSERT INTO playlist_track (playlist_id, track_id) VALUES ("
+                    + playlist.getId() + ", " + trackId + ")";
+            this.query(query);
+        }
+
+        // Tambahkan playlist ke list di class
+        playlists.add(playlist);
+    }
+
+    public void deletePlaylist(int playlistId) {
+        // Hapus playlist dari database
+        String query = "DELETE FROM playlist WHERE id = " + playlistId;
+        this.query(query);
+
+        // Hapus relasi track dari tabel playlist-track
+        query = "DELETE FROM playlist_track WHERE playlist_id = " + playlistId;
+        this.query(query);
+
+        // Hapus playlist dari list di class
+        playlists.removeIf(playlist -> playlist.getId() == playlistId);
+    }
+
+}
