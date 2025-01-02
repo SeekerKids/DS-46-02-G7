@@ -27,7 +27,6 @@ public class FreeUser extends User implements Subscription {
     public void upgrade() {
         PremiumUser premiumUser = new PremiumUser(getUsername(), getEmail(), getPassword());
         premiumUser.setPremium(true);
-        System.out.println("User " + getUsername() + " has upgraded to Premium!");
     }
 
     @Override
