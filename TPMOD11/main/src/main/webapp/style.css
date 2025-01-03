@@ -1,0 +1,67 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 24 Nov 2024, 16.23.08
+    Author     : Kids1
+*/
+
+body {
+    font-family: Comic Sans MS, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.hidden {
+    display: none;
+}
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.tab-content {
+    display: none;
+}
+.tab-content.active {
+    display: block;
+}
+.gambar{
+    display: flex;
+    margin-top: 10px;
+   
+    background-color: #6699ff;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    border-style: solid;
+    
+}
+.container{
+    display: flex;
+    border: 1px solid blue;
+    height: 700px;
+}
+.kiri{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px dotted black;
+}
+.kanan {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+#box-container{
+    margin-top: 20px;
+}
+
+.square-box {
+    width: 50px;
+    height: 50px;
+    background-color: #33ccff;
+}
