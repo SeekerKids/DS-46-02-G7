@@ -2,5 +2,4 @@
 Tugas Besar Pemrograman Berorientasi Objek
 
 
-ini MAIN branch
-masukin file update disini
+Versi final dan yang paling stable (masih ada bug)
