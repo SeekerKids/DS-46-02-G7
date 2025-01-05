@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 02, 2025 at 07:56 AM
+-- Host: 127.0.0.1:3309
+-- Generation Time: Jan 03, 2025 at 01:25 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -11,35 +11,29 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
--- Create database and use it
-CREATE DATABASE IF NOT EXISTS `tubes`;
-USE `tubes`;
-
---
 -- Database: `tubes`
---
+
+DROP DATABASE tubes;
+CREATE DATABASE tubes;
+USE tubes;
 
 -- --------------------------------------------------------
 
---
 -- Table structure for table `ads`
---
 
 CREATE TABLE `ads` (
-  `id` int(11) NOT NULL,
-  `content` varchar(255) NOT NULL,
-  `duration` double NOT NULL
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `content` VARCHAR(255) NOT NULL,
+  `duration` DOUBLE NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
 -- Dumping data for table `ads`
---
 
 INSERT INTO `ads` (`id`, `content`, `duration`) VALUES
 (1, 'https://goshopkey.com/wp-content/uploads/2023/05/Olatte.jpg', 15.5),
@@ -48,295 +42,88 @@ INSERT INTO `ads` (`id`, `content`, `duration`) VALUES
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `album`
---
-
-CREATE TABLE `album` (
-  `id` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `release_date` date DEFAULT NULL,
-  `artist_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `album`
---
-
-INSERT INTO `album` (`id`, `title`, `release_date`, `artist_id`) VALUES
-(36, 'Thriller', '1982-11-30', 1),
-(37, 'Back in Black', '1980-07-25', 2),
-(38, 'The Dark Side of the Moon', '1973-03-01', 3),
-(39, 'Abbey Road', '1969-09-26', 4),
-(40, 'Nevermind', '1991-09-24', 5);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `artist`
---
 
 CREATE TABLE `artist` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `bio` varchar(255) NOT NULL
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  `bio` VARCHAR(255) NOT NULL,
+  `gambar` VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
 -- Dumping data for table `artist`
---
 
-INSERT INTO `artist` (`id`, `name`, `bio`) VALUES
-(1, 'Michael Jackson', 'Known as the King of Pop, Michael Jackson was a global music icon with groundbreaking albums like Thriller.'),
-(2, 'AC/DC', 'An Australian rock band formed in 1973, known for high-energy performances and iconic songs like Back in Black.'),
-(3, 'Pink Floyd', 'An English rock band renowned for their progressive and psychedelic music, especially the album The Dark Side of the Moon.'),
-(4, 'The Beatles', 'A legendary British rock band from Liverpool that revolutionized music in the 1960s with hits like Hey Jude and Let It Be.'),
-(5, 'Nirvana', 'An American rock band that popularized grunge music in the 1990s with albums like Nevermind.');
+INSERT INTO `artist` (`id`, `name`, `bio`, `gambar`) VALUES
+(1, 'Bernadya', 'artis indo, indie', 'https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02da5d5aeeabacacc1263c0f4b'),
+(2, 'Eminem', 'Rapper', 'https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02cb1e5f7d0942bf9196c1e711'),
+(3, 'Anonymus', 'Podcast dari Indonesia', 'https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e026ca5c90113b30c3c43ffb8f4'),
+(4, 'Wave to Earth', 'Korean Artist', 'https://image-cdn-fa.spotifycdn.com/image/ab67656300005f1f88a1592ce7c11453e98096a4');
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `free_user`
---
-
-CREATE TABLE `free_user` (
-  `id` int(11) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `premium` tinyint(1) DEFAULT 0,
-  `price` double DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `free_user`
---
-
-INSERT INTO `free_user` (`id`, `username`, `email`, `password`, `premium`, `price`) VALUES
-(1, 'alice_wonder', 'alice.wonder@example.com', 'passwordAlice123', 0, 0),
-(2, 'bob_martin', 'bob.martin@example.com', 'passwordBob456', 0, 0),
-(3, 'charlie_jones', 'charlie.jones@example.com', 'passwordCharlie789', 0, 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `playlist`
---
-
-CREATE TABLE `playlist` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `playlist`
---
-
-INSERT INTO `playlist` (`id`, `name`, `description`) VALUES
-(1, 'Top Hits 2025', 'A collection of the top hits of the year 2025.'),
-(2, 'Classic Rock', 'Timeless rock songs from the 70s and 80s.'),
-(3, 'Relax & Unwind', 'Chill and relaxing tracks for a stress-free evening.'),
-(4, 'Workout Jams', 'High-energy tracks to keep you motivated during workouts.'),
-(5, 'Indie Favorites', 'Handpicked tracks from the best indie artists.');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `playlist_track`
---
-
-CREATE TABLE `playlist_track` (
-  `playlist_id` int(11) NOT NULL,
-  `track_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `playlist_track`
---
-
-INSERT INTO `playlist_track` (`playlist_id`, `track_id`) VALUES
-(1, 26),
-(2, 27),
-(3, 28),
-(4, 29),
-(5, 30);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `premium_user`
---
-
-CREATE TABLE `premium_user` (
-  `id` int(11) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `premium` tinyint(1) DEFAULT 1,
-  `price` double DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `premium_user`
---
-
-INSERT INTO `premium_user` (`id`, `username`, `email`, `password`, `premium`, `price`) VALUES
-(1, 'john_doe', 'john.doe@example.com', 'passwordJohn123', 1, 10.99),
-(2, 'jane_smith', 'jane.smith@example.com', 'passwordJane456', 1, 10.99),
-(3, 'emma_brown', 'emma.brown@example.com', 'passwordEmma789', 1, 10.99);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `track`
---
 
 CREATE TABLE `track` (
-  `id` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `genre` varchar(100) DEFAULT NULL,
-  `duration` double NOT NULL,
-  `streamCount` int(11) DEFAULT 0,
-  `likeCount` int(11) DEFAULT 0,
-  `shareCount` int(11) DEFAULT 0,
-  `artist_id` int(11) DEFAULT NULL,
-  `album_id` int(11) DEFAULT NULL
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(255) NOT NULL,
+  `genre` VARCHAR(255) NOT NULL,
+  `duration` DOUBLE NOT NULL,
+  `streamCount` INT(11) NOT NULL DEFAULT 0,
+  `likeCount` INT(11) NOT NULL DEFAULT 0,
+  `shareCount` INT(11) NOT NULL DEFAULT 0,
+  `artist_id` INT(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`artist_id`) REFERENCES `artist`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `track`
---
+-- Data untuk tabel `track`
 
-INSERT INTO `track` (`id`, `title`, `genre`, `duration`, `streamCount`, `likeCount`, `shareCount`, `artist_id`, `album_id`) VALUES
-(26, 'Billie Jean', 'Pop', 4.54, 1000000, 500000, 200000, 1, 36),
-(27, 'Back in Black', 'Rock', 4.15, 800000, 400000, 150000, 2, 37),
-(28, 'Comfortably Numb', 'Rock', 6.24, 1200000, 600000, 250000, 3, 38),
-(29, 'Come Together', 'Rock', 4.2, 900000, 450000, 180000, 4, 39),
-(30, 'Smells Like Teen Spirit', 'Grunge', 5.01, 1500000, 750000, 300000, 5, 40);
+INSERT INTO `track` (`id`, `title`, `genre`, `duration`, `streamCount`, `likeCount`, `shareCount`, `artist_id`) VALUES
+(26, 'Terlintas', 'Indie', 3.55, 50, 20, 10, 1),
+(27, 'Masa Sepi', 'Indie', 4.15, 20, 10, 20, 1),
+(28, 'Sinyal-sinyal', 'Indie', 6.24, 30, 20, 20, 1),
+(29, 'Satu Bulan', 'Indie', 4.2, 100, 20, 10, 1),
+(30, 'bad', 'pop', 5.01, 20, 10, 10, 4),
+(31, 'light.', 'pop', 3.5, 500, 400, 800, 4),
+(32, 'love.', 'pop', 4.46, 500, 400, 700, 4),
+(33, 'season', 'pop', 5.3, 50, 40, 60, 4),
+(34, 'Mockingbird', 'Rap', 1.33, 40, 90, 10, 2),
+(35, 'Without Me', 'Rap', 9.33, 90, 10, 20, 2),
+(36, 'Godzilla', 'Rap', 6.33, 30, 50, 40, 2),
+(37, 'Smack That', 'Rap', 3.33, 70, 40, 20, 2),
+(38, 'Semua Urusanku', 'Podcast', 19.33, 50, 50, 10, 3),
+(39, 'Lama Berlalu', 'Podcast', 28.33, 90, 30, 40, 3),
+(40, 'Kemarin Tidak Nyata', 'Podcast', 31.33, 30, 60, 30, 3),
+(41, 'Yang Sebentar Itu', 'Podcast', 41.33, 60, 20, 50, 3);
 
---
--- Indexes for dumped tables
---
+-- --------------------------------------------------------
 
---
--- Indexes for table `ads`
---
-ALTER TABLE `ads`
-  ADD PRIMARY KEY (`id`);
+-- Table structure for table `user`
 
---
--- Indexes for table `album`
---
-ALTER TABLE `album`
-  ADD PRIMARY KEY (`id`);
+CREATE TABLE `user` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `premium` TINYINT(1) DEFAULT 1,
+  `price` DOUBLE DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Indexes for table `artist`
---
-ALTER TABLE `artist`
-  ADD PRIMARY KEY (`id`);
+-- Dumping data for table `user`
 
---
--- Indexes for table `free_user`
---
-ALTER TABLE `free_user`
-  ADD PRIMARY KEY (`id`);
+INSERT INTO `user` (`id`, `username`, `email`, `password`, `premium`, `price`) VALUES
+(1, 'prem1', 'john.doe@example.com', 'prem1', 1, 10.99),
+(2, 'prem2', 'jane.smith@example.com', 'prem2', 1, 10.99),
+(3, 'prem3', 'emma.brown@example.com', 'prem3', 1, 10.99),
+(4, 'free1', 'alice.wonder@example.com', 'free1', 0, 0),
+(5, 'free2', 'bob.martin@example.com', 'free2', 0, 0),
+(6, 'free3', 'charlie.jones@example.com', 'free3', 0, 0);
 
---
--- Indexes for table `playlist`
---
-ALTER TABLE `playlist`
-  ADD PRIMARY KEY (`id`);
+-
 
---
--- Indexes for table `playlist_track`
---
-ALTER TABLE `playlist_track`
-  ADD PRIMARY KEY (`playlist_id`,`track_id`),
-  ADD KEY `track_id` (`track_id`);
 
---
--- Indexes for table `premium_user`
---
-ALTER TABLE `premium_user`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `track`
---
-ALTER TABLE `track`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `ads`
---
-ALTER TABLE `ads`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `album`
---
-ALTER TABLE `album`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
-
---
--- AUTO_INCREMENT for table `artist`
---
-ALTER TABLE `artist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `free_user`
---
-ALTER TABLE `free_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `playlist`
---
-ALTER TABLE `playlist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `premium_user`
---
-ALTER TABLE `premium_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `track`
---
-ALTER TABLE `track`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `album`
---
-ALTER TABLE `album`
-  ADD CONSTRAINT `album_ibfk_1` FOREIGN KEY (`artist_id`) REFERENCES `artist` (`id`) ON DELETE SET NULL;
-
---
--- Constraints for table `playlist_track`
---
-ALTER TABLE `playlist_track`
-  ADD CONSTRAINT `playlist_track_ibfk_1` FOREIGN KEY (`playlist_id`) REFERENCES `playlist` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `playlist_track_ibfk_2` FOREIGN KEY (`track_id`) REFERENCES `track` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `track`
---
-ALTER TABLE `track`
-  ADD CONSTRAINT `track_ibfk_1` FOREIGN KEY (`artist_id`) REFERENCES `artist` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `track_ibfk_2` FOREIGN KEY (`album_id`) REFERENCES `album` (`id`) ON DELETE SET NULL;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
