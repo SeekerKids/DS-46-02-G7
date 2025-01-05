@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/Hendrik/Documents/NetBeansProjects/aw/src/java/controllers/UserController.java</file>
+            <file>file:/C:/Users/Hendrik/Documents/NetBeansProjects/aw/src/java/models/Premium.java</file>
+            <file>file:/C:/Users/Hendrik/Documents/NetBeansProjects/aw/web/dbStatus.jsp</file>
+            <file>file:/C:/Users/Hendrik/Documents/NetBeansProjects/aw/src/java/models/User.java</file>
+            <file>file:/C:/Users/Hendrik/Documents/NetBeansProjects/aw/web/Playartist.jsp</file>
+            <file>file:/C:/Users/Hendrik/Documents/NetBeansProjects/aw/src/java/controllers/ArtistController.java</file>
+            <file>file:/C:/Users/Hendrik/Documents/NetBeansProjects/aw/web/admin.jsp</file>
+            <file>file:/C:/Users/Hendrik/Documents/NetBeansProjects/aw/src/java/controllers/LoginController.java</file>
+            <file>file:/C:/Users/Hendrik/Documents/NetBeansProjects/aw/web/homepage.jsp</file>
+            <file>file:/C:/Users/Hendrik/Documents/NetBeansProjects/aw/src/java/controllers/AdsController.java</file>
+            <file>file:/C:/Users/Hendrik/Documents/NetBeansProjects/aw/web/signup.jsp</file>
+            <file>file:/C:/Users/Hendrik/Documents/NetBeansProjects/aw/src/java/models/Model.java</file>
+            <file>file:/C:/Users/Hendrik/Documents/NetBeansProjects/aw/src/java/models/Free.java</file>
+            <file>file:/C:/Users/Hendrik/Documents/NetBeansProjects/aw/src/java/controllers/SignUpController.java</file>
+            <file>file:/C:/Users/Hendrik/Documents/NetBeansProjects/aw/src/java/models/Artist.java</file>
+            <file>file:/C:/Users/Hendrik/Documents/NetBeansProjects/aw/src/java/controllers/PremiumController.java</file>
+            <file>file:/C:/Users/Hendrik/Documents/NetBeansProjects/aw/src/java/models/Subscription.java</file>
+            <file>file:/C:/Users/Hendrik/Documents/NetBeansProjects/aw/web/Playlagu.jsp</file>
+            <file>file:/C:/Users/Hendrik/Documents/NetBeansProjects/aw/src/java/models/Ads.java</file>
+            <file>file:/C:/Users/Hendrik/Documents/NetBeansProjects/aw/web/index.jsp</file>
+            <file>file:/C:/Users/Hendrik/Documents/NetBeansProjects/aw/src/java/models/Track.java</file>
+            <file>file:/C:/Users/Hendrik/Documents/NetBeansProjects/aw/src/java/controllers/FreeController.java</file>
+            <file>file:/C:/Users/Hendrik/Documents/NetBeansProjects/aw/src/java/controllers/TrackController.java</file>
+        </group>
+    </open-files>
+</project-private>
